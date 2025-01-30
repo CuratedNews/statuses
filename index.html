@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>Curated News Statuses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' curatednews.xyz;style-src 'self' 'nonce-KuH5RgSyF4u0dve' curatednews.xyz;img-src 'self' data: curatednews.xyz;">
+    <meta name="description" content="Curated News Business helps prospective employees, partners, and journalists get transparent information about our service that is unrelated to our core product.">
+    <meta name="keywords" content="news, content, media">
+    <meta name="copyright" content="Curated News">
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="expires" content="302400">
+    <meta property="og:image" content="https://curatednews.xyz/static/images/homeogimage.png">
+    <meta id="theme-color" name="theme-color" content="#282828">
+    <link rel="stylesheet" nonce="" href="static/css/style.css" />
+    <link rel="stylesheet" nonce="" href="static/css/fonts.css">
+    <link rel="shortcut icon" type="image/jpg" href="https://curatednews.xyz/static/images/favicon.ico">
+    <script src="static/js/statsig.js"></script>
+    <script src="static/js/marked.min.js"></script>
+    <script src="static/js/purify.min.js"></script>
+  </head>
+  <body>
+    <div class="headerContainer">
+      <div>
+        <img src="https://curatednews.xyz/static/images/logo.png">
+        <h1>Curated News</h1>
+      </div>
+      <div>
+        <p>This status page is still under development.</p>
+      </div>
+    </div>
+    <div class="pageContainer">
+      <div class="headline">
+        <span id="check-uptimes" class="active">Uptimes</span>
+        <span id="check-current-incidents">Incidents</span>
+        <span id="check-previous-incidents">Historical</span>
+      </div>
+      <div id="reports" class="reportContainer"></div>
+      <div id="incidents" class="incidentsContainer"></div>
+      <div id="tooltip" class="tooltip">
+        <div id="tooltipArrow" class="tooltipArrow"></div>
+        <div id="tooltipDateTime" class="tooltipDateTime"></div>
+        <div id="tooltipStatus" class="tooltipStatus"></div>
+        <hr />
+        <div id="tooltipDescription" class="tooltipDescription"></div>
+      </div>
+      <div id="templates">
+        <div
+          id="statusSquareTemplate"
+          class="statusSquare $color"
+          data-status="$color"
+        ></div>
+        <div id="statusLineTemplate" class="statusLine"></div>
+        <div
+          id="statusStreamContainerTemplate"
+          class="statusStreamContainer"
+        ></div>
+        <div id="statusContainerTemplate" class="statusContainer">
+          <div class="statusHeader">
+            <h6 class="statusTitle">$title&nbsp;</h6>
+            <div class="$color statusHeadline">$status</div>
+          </div>
+          <div class="statusSubtitle">
+            <div class="sectionUrl"><a href="$url">$url</a></div>
+            <div class="statusUptime">$upTime in the last 30 days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Powered by
+      <a href="https://github.com/statsig-io/statuspage/"
+        >Statsig</a
+      >.
+    </footer>
+  </body>
+</html>
