@@ -1,7 +1,7 @@
 # Curated News has heavily modified the original Statsig shell script with a more robust reachability check, including check responses by headers and verifying them by date.
 commit=false
 origin=$(git remote get-url origin)
-if [[ $origin == *CuratedNews/curatednewsbusiness* ]]
+if [[ $origin == *CuratedNews/business* ]]
 then
   commit=true
 fi
