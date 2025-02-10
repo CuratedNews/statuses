@@ -2,7 +2,7 @@
   <head>
     <title>Curated News Statuses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' curatednews.xyz;style-src 'self' 'nonce-KuH5RgSyF4u0dve' curatednews.xyz;img-src 'self' data: curatednews.xyz;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' curatednews.xyz;style-src 'self' 'nonce-KuH5RgSyF4u0dve' curatednews.xyz;img-src 'self' data: curatednews.xyz;font-src 'self';">
     <meta name="description" content="Curated News Business helps prospective employees, partners, and journalists get transparent information about our service that is unrelated to our core product.">
     <meta name="keywords" content="news, content, media">
     <meta name="copyright" content="Curated News">
@@ -55,11 +55,10 @@
         ></div>
         <div id="statusContainerTemplate" class="statusContainer">
           <div class="statusHeader">
-            <h6 class="statusTitle">$title&nbsp;</h6>
+            <h6 class="statusTitle"><a href="$url" target="_blank">$title</a></h6>
             <div class="$color statusHeadline">$status</div>
           </div>
           <div class="statusSubtitle">
-            <div class="sectionUrl"><a href="$url">$url</a></div>
             <div class="statusUptime">$upTime in the last 30 days</div>
           </div>
         </div>

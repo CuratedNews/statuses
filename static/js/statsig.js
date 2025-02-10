@@ -278,7 +278,7 @@ async function genIncidentReport() {
 
 async function genCurrentIncidentReport() {
   const response = await fetch(
-    "incidents/template.json"
+    "incidents/active.json"
   );
   if (response.ok) {
     const json = await response.json();
