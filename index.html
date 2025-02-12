@@ -56,7 +56,10 @@
         <div id="statusContainerTemplate" class="statusContainer">
           <div class="statusHeader">
             <h6 class="statusTitle"><a href="$url" target="_blank">$title</a></h6>
-            <div class="$color statusHeadline">$status</div>
+            <div class="headlinesContainer">
+              <div class="$color statusHeadline">$status</div>
+              <div id="$title" class="statusHeadline unknown">DNS Unknown</div>
+            </div>
           </div>
           <div class="statusSubtitle">
             <div class="statusUptime">$upTime in the last 30 days</div>

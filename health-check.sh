@@ -80,7 +80,7 @@ do
         echo "$url DNS is down"
         report_date=$(date +%Y-%m-%d-%H:%M:%S-%Z)
         report_title="DNS Outtage"
-        report_summary="After an DNS uptime check of $linkdomain, Google reported a DNS response code of $googlednsstatus and Cloudflare reported a DNS reponse code of $cloudflarednsstatus. A status and/or error code of 2 means this web server's DNS is currently down."
+        report_summary="After DNS uptime check of $linkdomain, Google reported a DNS response code of $googlednsstatus for this server's A records and Cloudflare reported a DNS reponse code of $cloudflarednsstatus for this server's AAAA records. A status and/or error code of 2 means this web server's DNS is currently down."
         report_mitigated="An automated fix is on-going."
       elif [[ $googlednsstatus -eq 3 ]] || [[ $cloudflarednsstatus -eq 3 ]]; then
         echo "$url DNS does not exist"
@@ -101,8 +101,10 @@ do
       fi
       if [[ "$googlednsstatusreponse" == *"69.163.140.222"* ]] || [[ "$cloudflarednsstatus" == *"dreamhost.com"* ]] && [[ "$linkdomain" == *"curatednews.xyz"* ]]; then
         echo "$url DNS is expected DNS"
-        make_security_report="{"curatednews.xyz":"secure"}"
-        echo $make_security_report > "security/security.json"
+        jq -n '{"curatednews.xyz": "secure"}' > security.json
+      elif [[ "$googlednsstatusreponse" == *"104.21.48.178"* ]] || [[ "$googlednsstatusreponse" == *"172.67.155.85"* ]]; then
+        echo "$url DNS is expected DNS"
+        jq '. + {'"$linkdomain"': "secure"}' security.json > tmp.json && mv tmp.json security.json
       fi
       active_reports="$active_reports#### $report_date : $report_title\n$report_summary.\n\n$report_mitigated\r\n\r\n"
       break
@@ -116,12 +118,12 @@ do
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${key}_report.log"
-    # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
     echo "$(tail -2000 logs/${key}_report.log)" > "logs/${key}_report.log"
-    make_report="{"active":"$active_reports"}"
-    echo $make_report > "incidents/active.json"
+    result=$(jq '.inactive' incidents/inactive.json)
+    jq '{"inactive": "'".active"''$result'"}' incidents/active.json > incidents/tmp.json && mv incidents/tmp.json incidents/inactive.json
+    jq -n '{active: '"$active_reports"}'' > incidents/active.json
   else
-    echo "    $dateTime, $result"
+    echo "|| $dateTime, $result"
   fi
 done
 

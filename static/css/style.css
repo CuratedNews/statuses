@@ -249,25 +249,28 @@ footer a {
   font-weight: 300;
 }
 
-.secure::after{
-  content: "f00c";
-  font-family: FontAwesome;
-  color: #1854f1;
-  font-size: small;
+.secure{
+  color: #fff;
+  background-color: #1854f1;
+  text-decoration: none;
+  text-transform: none;
+}
+.secure:hover{
+  text-decoration: none !important;
 }
 
-.unknown::after{
-  content: "f128";
-  font-family: FontAwesome;
-  color: orange;
-  font-size: small;
+.unknown{
+  color: #fff;
+  background-color: #7c7c7c;
+  text-decoration: none;
+  text-transform: none;
 }
 
-.insecure::after{
-  content: "f12a";
-  font-family: FontAwesome;
-  color: red;
-  font-size: small;
+.insecure{
+  color: #fff;
+  background-color: red;
+  text-decoration: none;
+  text-transform: none;
 }
 
 .statusHeader {
@@ -282,6 +285,13 @@ footer a {
   flex-direction: row;
   align-items: center;
   margin-bottom: 12px;
+}
+
+.headlinesContainer{
+  display: flex;
+  gap: 2.5px;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .statusHeadline {

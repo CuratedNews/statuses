@@ -311,6 +311,35 @@ async function genHistoricalIncidents() {
   }
 }
 
+async function getSecurityAlerts() {
+  const response = await fetch(
+    "security/security.json"
+  );
+  if (response.ok) {
+    const json = await response.json();
+    try {
+      for (let key in json) {
+        if(key){
+          const domain = document.getElementById(key);
+          domain.classList.remove("unknown");
+          if(json[key] == "secure"){
+            domain.classList.add("secure");
+            domain.innerText = "DNS Verified";
+          } else if(json[key] == "insecure"){
+            domain.classList.add("insecure");
+            domain.innerText = "DNS Warning";
+          } else {
+            domain.classList.add("unknown");
+            domain.innerText = "DNS Unknown";
+          }
+        }
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+}
+
 window.addEventListener('load', function () {   
   const checkUptimes = document.getElementById("check-uptimes");
   const checkIncidents = document.getElementById("check-current-incidents");
@@ -351,4 +380,5 @@ window.addEventListener('load', function () {
 
   //genIncidentReport(); 
   genAllReports();
+  setTimeout(getSecurityAlerts, 1500);
 });
