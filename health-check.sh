@@ -101,10 +101,10 @@ do
       fi
       if [[ "$googlednsstatusreponse" == *"69.163.140.222"* ]] || [[ "$cloudflarednsstatus" == *"dreamhost.com"* ]] && [[ "$linkdomain" == *"curatednews.xyz"* ]]; then
         echo "$url DNS is expected DNS"
-        jq -n '{"curatednews.xyz": "secure"}' > security.json
+        jq -n '{"curatednews.xyz": "secure"}' > security/security.json
       elif [[ "$googlednsstatusreponse" == *"104.21.48.178"* ]] || [[ "$googlednsstatusreponse" == *"172.67.155.85"* ]]; then
         echo "$url DNS is expected DNS"
-        jq '. + {'"$linkdomain"': "secure"}' security.json > tmp.json && mv tmp.json security.json
+        jq '. + {'"$linkdomain"': "secure"}' security/security.json > tmp.json && mv tmp.json security/security.json
       fi
       active_reports="$active_reports#### $report_date : $report_title\n$report_summary.\n\n$report_mitigated\r\n\r\n"
       break
