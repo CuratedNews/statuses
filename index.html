@@ -2,7 +2,7 @@
   <head>
     <title>Curated News Statuses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' curatednews.xyz;style-src 'self' 'nonce-KuH5RgSyF4u0dve' curatednews.xyz;img-src 'self' data: curatednews.xyz;font-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' curatednews.xyz;style-src 'self' curatednews.xyz;img-src 'self' data: curatednews.xyz;font-src 'self';">
     <meta name="description" content="Curated News Business helps prospective employees, partners, and journalists get transparent information about our service that is unrelated to our core product.">
     <meta name="keywords" content="news, content, media">
     <meta name="copyright" content="Curated News">
@@ -14,8 +14,6 @@
     <link rel="stylesheet" nonce="" href="static/css/fonts.css">
     <link rel="shortcut icon" type="image/jpg" href="https://curatednews.xyz/static/images/favicon.ico">
     <script src="static/js/statsig.js"></script>
-    <script src="static/js/marked.min.js"></script>
-    <script src="static/js/purify.min.js"></script>
   </head>
   <body>
     <div class="headerContainer">
@@ -24,7 +22,11 @@
         <h1>Curated News</h1>
       </div>
       <div>
-        <p>This status page is still under development.</p>
+        <p>This is the official statuses page for <a href="https://curatednews.xyz" target="_blank">curatednews.xyz</a> related services. It contains information about service disconnection events, server security controls, configuration problems, and active and historical issues with our service. It serves to help our business teams and users get information about our web presence. This page is open source and publicly discoverable on our <a href="https://github.com/curatednews" target="_blank">github</a>.</p>
+      </div>
+      <div class="settings-and-actions">
+        <span id="dark-mode"><i class="fa fa-adjust" aria-hidden="true"></i> Light/Dark Mode</span>
+        <span id="subscribe">Subscribe to RSS</span>
       </div>
     </div>
     <div class="pageContainer">
@@ -58,7 +60,9 @@
             <h6 class="statusTitle"><a href="$url" target="_blank">$title</a></h6>
             <div class="headlinesContainer">
               <div class="$color statusHeadline">$status</div>
-              <div id="$title" class="statusHeadline unknown">DNS Unknown</div>
+              <div id="$title-configuration" class="statusHeadline unknown">Config Unknown</div>
+              <div id="$title-dns-status" class="statusHeadline unknown">DNS Unknown</div>
+              <div id="$title-security" class="statusHeadline unknown">Security Unknown</div>
             </div>
           </div>
           <div class="statusSubtitle">
@@ -73,5 +77,6 @@
         >Statsig</a
       >.
     </footer>
+    <script src="static/js/darkmode.js"></script>
   </body>
 </html>

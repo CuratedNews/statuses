@@ -283,10 +283,21 @@ async function genCurrentIncidentReport() {
   if (response.ok) {
     const json = await response.json();
     try {
-      const activeDom = DOMPurify.sanitize(
-        marked.parse(json.active ? json.active : "No active incidents")
-      );
-      document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Active Reports</h4><div id="activeIncidentReports">${activeDom}</div><hr /></div>`;
+      var reportsActual = ""
+      for (let key in json) {
+        if(key){
+          const currentReport = json[key];
+          const currentReportArray = currentReport.split("-_-");
+          if(currentReportArray[1].length>0){
+            reportsActual+=`<div id="${key}"><span>${currentReportArray[0]}</span><h1>${currentReportArray[1]}</h1><h2>${key}</h2><p>${currentReportArray[2]}</p><h4>${currentReportArray[3]}</h4></div>`
+          }
+        }
+      }
+      if(reportsActual.length>0){
+        document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Active Reports</h4><div id="activeIncidentReports">${reportsActual}</div></div>`;
+      } else {
+        document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Active Reports</h4><div id="activeIncidentReports">Nothing active to report</div></div>`;
+      }
     } catch (e) {
       console.log(e.message);
     }
@@ -295,16 +306,84 @@ async function genCurrentIncidentReport() {
 
 async function genHistoricalIncidents() {
   const response = await fetch(
-    "incidents/template.json"
+    "incidents/inactive.json"
   );
   if (response.ok) {
     const json = await response.json();
     try {
-      var inactiveDom = DOMPurify.sanitize(marked.parse(json.inactive));
-      if(inactiveDom.includes("Time of Report")){
-        inactiveDom = "No past incidents";
+      var reportsActual = ""
+      for (let key in json) {
+        if(key){
+          const currentReport = json[key];
+          const currentReportArray = currentReport.split("-_-");
+          if(currentReportArray[1].length>0){
+            reportsActual+=`<div id="${key}"><span>${currentReportArray[0]}</span><h1>${currentReportArray[1]}</h1><h2>${key}</h2><p>${currentReportArray[2]}</p><h4>${currentReportArray[3]}</h4></div>`
+          }
+        }
       }
-      document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Past Reports</h4><div id="pastIncidentReports">${inactiveDom}</div><hr /></div>`;
+      if(reportsActual.length>0){
+        document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Inactive Reports</h4><div id="inActiveIncidentReports">${reportsActual}</div></div>`;
+      } else {
+        document.getElementById("incidents").innerHTML = `<div class="statusContainer"><div class="statusHeader"><h3 class="incidentReportsHeader">Incident Reports</h3></div><h4>Inactive Reports</h4><div id="inActiveIncidentReports">Nothing historical to report</div></div>`;
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+}
+
+async function getConfigurationType() {
+  const response = await fetch(
+    "configuration/configuration.json"
+  );
+  if (response.ok) {
+    const json = await response.json();
+    try {
+      for (let key in json) {
+        if(key){
+          const domain = document.getElementById(`${key}-configuration`);
+          domain.classList.remove("unknown");
+          if(json[key] == "Normal"){
+            domain.classList.add("normal");
+            domain.innerText = "Config Normal";
+          } else if(json[key] == "Extra Security"){
+            domain.classList.add("secure");
+            domain.innerText = "Config Extra Security";
+          } else {
+            domain.classList.add("unknown");
+            domain.innerText = "Config Unknown";
+          }
+        }
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+}
+
+async function getDNSstatus() {
+  const response = await fetch(
+    "dns/dns.json"
+  );
+  if (response.ok) {
+    const json = await response.json();
+    try {
+      for (let key in json) {
+        if(key){
+          const domain = document.getElementById(`${key}-dns-status`);
+          domain.classList.remove("unknown");
+          if(json[key] == "up"){
+            domain.classList.add("up");
+            domain.innerText = "DNS Up";
+          } else if(json[key] == "down"){
+            domain.classList.add("down");
+            domain.innerText = "DNS Down";
+          } else {
+            domain.classList.add("unknown");
+            domain.innerText = "DNS ?";
+          }
+        }
+      }
     } catch (e) {
       console.log(e.message);
     }
@@ -320,17 +399,17 @@ async function getSecurityAlerts() {
     try {
       for (let key in json) {
         if(key){
-          const domain = document.getElementById(key);
+          const domain = document.getElementById(`${key}-security`);
           domain.classList.remove("unknown");
           if(json[key] == "secure"){
             domain.classList.add("secure");
             domain.innerText = "DNS Verified";
           } else if(json[key] == "insecure"){
             domain.classList.add("insecure");
-            domain.innerText = "DNS Warning";
+            domain.innerText = "DNS Mismatch";
           } else {
             domain.classList.add("unknown");
-            domain.innerText = "DNS Unknown";
+            domain.innerText = "DNS Security Unknown";
           }
         }
       }
@@ -354,6 +433,9 @@ window.addEventListener('load', function () {
     checkIncidents.classList.remove("active");
     checkHistory.classList.remove("active");
     checkUptimes.classList.add("active");
+    setTimeout(getConfigurationType, 1500);
+    setTimeout(getDNSstatus, 1500);
+    setTimeout(getSecurityAlerts, 1500);
   });
 
   checkIncidents.addEventListener("click", function() {
@@ -380,5 +462,7 @@ window.addEventListener('load', function () {
 
   //genIncidentReport(); 
   genAllReports();
+  setTimeout(getConfigurationType, 1500);
+  setTimeout(getDNSstatus, 1500);
   setTimeout(getSecurityAlerts, 1500);
 });
