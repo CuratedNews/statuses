@@ -130,7 +130,7 @@ do
       if [[ "$googlednsstatusreponse" == *"69.163.140.222"* ]] || [[ "$cloudflarednsstatus" == *"dreamhost.com"* ]] && [[ "$linkdomain" == *"curatednews.xyz"* ]]; then
         echo "$url DNS is expected DNS"
         jq -n '{"curatednews.xyz": "secure"}' > security/security.json
-      elif [[ "$googlednsstatusreponse" == *"104.21.48.178"* ]] || [[ "$googlednsstatusreponse" == *"172.67.155.85"* ]]; then
+      elif [[ "$googlednsstatusreponse" == *"104.21.48.178"* ]] || [[ "$googlednsstatusreponse" == *"172.67.155.85"* ]] || [[ "$googlednsstatusreponse" == *"curatednews.github.io."* ]] || [[ "$googlednsstatusreponse" =~ *"185.199."* ]]; then
         echo "$url DNS is expected DNS"
         jq '. |= (. + input)' security/security.json <(echo '{"'${linkdomain}'": "secure"}') >> tmp.json && mv tmp.json security/security.json
       else

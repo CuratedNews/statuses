@@ -648,6 +648,17 @@ blockquote.warning > p:last-child{
 }
 
 @media screen and (max-width: 500px) {
+  .statusContainer{
+    border: none;
+    padding: 4px;
+  }
+  .statusContainer #activeIncidentReports, .statusContainer #inActiveIncidentReports {
+    padding: 0;
+  }
+  #activeIncidentReports div, #inActiveIncidentReports div{
+    padding: 5px;
+    margin: 0;
+  }
   .statusTitle a {
     font-size: 12px;
   }
