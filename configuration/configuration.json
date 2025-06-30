@@ -1,5 +1,8 @@
 {
   "curatednews.xyz": "Normal",
   "curatednewsbusiness.xyz": "Extra Security",
-  "dataset.curatednews.xyz": "Extra Security"
+  "docs.curatednews.xyz": "Normal",
+  "headlinesclassifier.curatednews.xyz": "Normal",
+  "dataset.curatednews.xyz": "Normal",
+  "regions.curatednews.xyz": "Normal"
 }
