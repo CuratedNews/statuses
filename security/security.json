@@ -2,7 +2,7 @@
   "curatednews.xyz": "secure",
   "curatednewsbusiness.xyz": "secure",
   "docs.curatednews.xyz": "secure",
-  "headlinesclassifier.curatednews.xyz": "secure",
+  "headlinesclassifier.curatednews.xyz": "insecure",
   "dataset.curatednews.xyz": "secure",
   "regions.curatednews.xyz": "secure"
 }
